@@ -140,6 +140,8 @@ The scoreboard ensures correctness by maintaining expected FIFO behavior using:
 - `push_back()` for write operations
 - `pop_front()` for read operations
 
+Self-checking randomized verification environment using SystemVerilog scoreboard model.
+
 ---
 
 ## Test Strategy
