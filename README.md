@@ -4,15 +4,10 @@ RTL design and self-checking verification of a configurable synchronous FIFO usi
 
 ## Overview
 
-This project implements a parameterized synchronous FIFO
-(First-In First-Out) memory buffer in SystemVerilog and verifies
-its functionality using a self-checking randomized testbench.
+This project implements a **parameterized synchronous FIFO (First-In First-Out) buffer** using SystemVerilog and verifies its functionality using a **self-checking, randomized testbench with a scoreboard-based reference model**.
 
-The design supports configurable data width and depth and includes
-overflow/underflow protection through full and empty status flags.
+The FIFO ensures ordered data transfer where the first data written is the first data read, making it a critical component in digital systems for buffering and flow control.
 
-Verification is performed using a scoreboard-based architecture
-with randomized stimulus generation and automatic result checking.
 
 ---
 
@@ -21,17 +16,17 @@ with randomized stimulus generation and automatic result checking.
 FIFO (First-In First-Out) is a fundamental buffering structure in digital design where the **first data written is the first data read**. It behaves like a queue and is widely used to manage data flow between systems operating at different speeds.
 
 ---
-## Features
+## Key Features
 
-- Parameterized FIFO design
-- Configurable DATA_WIDTH and DEPTH
-- Full and Empty flag generation
-- Overflow protection
-- Underflow protection
+- Parameterized FIFO depth and data width
+- Synchronous read/write operations
+- Full and Empty status flag generation
+- Overflow and underflow protection
 - Simultaneous read/write support
 - Self-checking verification environment
-- Randomized testing using $urandom
-- Queue-based golden reference model
+- Randomized stimulus generation
+- Scoreboard-based golden reference model
+
 
 ---
 
@@ -40,16 +35,18 @@ FIFO (First-In First-Out) is a fundamental buffering structure in digital design
 
 ---
 
-## Key Signals
+## Interface Signals
 
-| Signal | Description |
-|--------|-------------|
-| `wr_en` (Write Enable) | Controls writing data into the FIFO |
-| `rd_en` (Read Enable) | Controls reading data from the FIFO |
-| `data_in` | Input data to be stored in FIFO |
-| `data_out` | Output data retrieved from FIFO |
-| `full` | Indicates FIFO cannot accept more data |
-| `empty` | Indicates FIFO has no valid data to read |
+| Signal | Direction | Width | Description |
+|--------|----------|-------|-------------|
+| clk | Input | 1-bit | System clock (rising edge triggered) |
+| rst | Input | 1-bit | Reset signal (initializes FIFO state) |
+| write_en | Input | 1-bit | Enables write operation |
+| read_en | Input | 1-bit | Enables read operation |
+| data_in | Input | 8-bit | Input data to FIFO |
+| data_out | Output | 8-bit | Output data from FIFO |
+| full | Output | 1-bit | Indicates FIFO is full |
+| empty | Output | 1-bit | Indicates FIFO is empty |
 
 ---
 
@@ -67,7 +64,7 @@ These issues are often **corner cases that are difficult to detect manually** us
 
 ---
 
-## 🧪 Why Verification is Required
+## Why Verification is Required
 
 A FIFO that appears correct in RTL can still fail in edge conditions. Manual waveform checking over hundreds of cycles is slow and error-prone.
 
@@ -75,7 +72,7 @@ A **self-checking testbench** solves this by automatically verifying correctness
 
 ---
 
-## 🧠 Why SystemVerilog is Used
+## Why SystemVerilog is Used
 
 Traditional Verilog testbenches are limited because they require manual checking. SystemVerilog adds powerful verification capabilities:
 
@@ -132,29 +129,43 @@ This project demonstrates a foundational step toward **industry-standard RTL des
 
 ## Verification Methodology
 
-The FIFO was verified using a self-checking testbench consisting of:
+The FIFO is verified using a **self-checking SystemVerilog testbench architecture** consisting of:
 
-- Generator
-- Driver
-- Monitor
-- Scoreboard
+- Generator (random stimulus using `$urandom`)
+- Driver (drives DUT inputs)
+- Monitor (captures DUT outputs)
+- Scoreboard (golden reference model using `queue[$]`)
 
-A SystemVerilog queue was used as the golden reference model.
-
-Expected behavior:
-
-model_q.push_back(data_in);
-
-Observed behavior:
-
-data_out
-
-The scoreboard automatically compares DUT output
-against the reference model and reports mismatches.
+The scoreboard ensures correctness by maintaining expected FIFO behavior using:
+- `push_back()` for write operations
+- `pop_front()` for read operations
 
 ---
 
-## 🚀 How to Run on EDA Playground
+## Test Strategy
+
+The design is validated against:
+
+- Reset behavior
+- Random write/read transactions
+- FIFO ordering correctness
+- Overflow protection (`full` condition)
+- Underflow protection (`empty` condition)
+- Simultaneous read/write scenarios
+- 100-cycle randomized simulation
+
+---
+
+## Tools Used
+
+- SystemVerilog
+- Aldec Riviera-PRO (EDA Playground)
+- EPWave / GTKWave
+- Randomized verification methodology
+
+---
+
+## How to Run on EDA Playground
 
 Follow the steps below to simulate and verify the FIFO design using **EDA Playground**.
 
@@ -315,7 +326,6 @@ The FIFO design and verification environment leverage several SystemVerilog cons
 
 ---
 
-### Key Takeaways
+## Key Takeaway
 
-This project demonstrates the application of modern SystemVerilog design and verification techniques, including parameterized RTL development, randomized stimulus generation, automated result checking, and waveform-based debugging. The combination of a scoreboard-driven verification flow and randomized testing helps ensure robust validation of FIFO functionality under a wide range of operating conditions.
-
+This project demonstrates a **real-world verification flow used in ASIC/FPGA design**, including randomized testing, scoreboard-based checking, and self-checking simulation techniques commonly used in industry-grade verification environments.
