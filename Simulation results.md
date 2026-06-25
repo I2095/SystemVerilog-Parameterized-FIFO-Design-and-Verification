@@ -147,10 +147,10 @@ This confirms:
 
 The simulation confirms correct FIFO behavior under all tested scenarios:
 
-- ✔ Burst write functionality
-- ✔ Interleaved producer–consumer operation
-- ✔ Long-duration stress testing
-- ✔ Correct pointer wrap-around (circular buffer behavior)
-- ✔ Accurate scoreboard-based verification
-- ✔ Reliable occupancy tracking
-- ✔ No data loss or ordering violations
+- Burst write functionality
+- Interleaved producer–consumer operation
+- Long-duration stress testing
+- Correct pointer wrap-around (circular buffer behavior)
+- Accurate scoreboard-based verification
+- Reliable occupancy tracking
+- No data loss or ordering violations
