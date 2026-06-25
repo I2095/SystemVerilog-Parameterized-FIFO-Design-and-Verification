@@ -16,6 +16,11 @@ with randomized stimulus generation and automatic result checking.
 
 ---
 
+## FIFO (First-In First-Out) 
+
+FIFO (First-In First-Out) is a fundamental buffering structure in digital design where the **first data written is the first data read**. It behaves like a queue and is widely used to manage data flow between systems operating at different speeds.
+
+---
 ## Features
 
 - Parameterized FIFO design
@@ -32,6 +37,93 @@ with randomized stimulus generation and automatic result checking.
 
 # FIFO Architecture
 <img width="1004" height="500" alt="image" src="https://github.com/user-attachments/assets/e77c1e1f-f806-477b-b7d4-d1d39bccf18f" />
+
+---
+
+## Key Signals
+
+| Signal | Description |
+|--------|-------------|
+| `wr_en` (Write Enable) | Controls writing data into the FIFO |
+| `rd_en` (Read Enable) | Controls reading data from the FIFO |
+| `data_in` | Input data to be stored in FIFO |
+| `data_out` | Output data retrieved from FIFO |
+| `full` | Indicates FIFO cannot accept more data |
+| `empty` | Indicates FIFO has no valid data to read |
+
+---
+
+## Why FIFO is Critical in Digital Systems
+
+FIFOs are used everywhere in hardware systems — between processors and UARTs, across clock domains, and inside high-speed interfaces like USB controllers.
+
+If a FIFO fails, system-level failures occur such as:
+- Reading data too early (underflow)
+- Overwriting unread data (overflow)
+- Incorrect `full/empty` flag behavior
+- Failures during simultaneous read/write operations
+
+These issues are often **corner cases that are difficult to detect manually** using waveform inspection alone.
+
+---
+
+## 🧪 Why Verification is Required
+
+A FIFO that appears correct in RTL can still fail in edge conditions. Manual waveform checking over hundreds of cycles is slow and error-prone.
+
+A **self-checking testbench** solves this by automatically verifying correctness for every transaction.
+
+---
+
+## 🧠 Why SystemVerilog is Used
+
+Traditional Verilog testbenches are limited because they require manual checking. SystemVerilog adds powerful verification capabilities:
+
+- **Randomization (`$urandom`)**  
+  Automatically generates thousands of test scenarios
+
+- **Queues (`model_q[$]`)**  
+  Enables a simple golden reference model for expected FIFO behavior
+
+- **Self-checking (`$error`)**  
+  Automatically reports mismatches without manual inspection
+
+- **Waveform Dumping (`$dumpvars`)**  
+  Enables debugging using GTKWave / EPWave
+
+These features make verification:
+- Scalable
+- Automated
+- Repeatable
+- Industry-relevant
+
+---
+## 🏭 Industry Relevance
+
+In semiconductor development, **verification consumes 60–70% of total design effort**.
+
+A single undetected FIFO bug in silicon can lead to:
+- Expensive chip re-spins
+- System-level failures
+- Performance degradation
+
+This is why companies such as **Intel, NVIDIA, and Qualcomm** invest heavily in advanced verification methodologies including SystemVerilog and UVM.
+
+---
+
+## Project Goal
+
+This project demonstrates a foundational step toward **industry-standard RTL design and verification methodology**, including:
+- To design the FIFO RTL module with 8-bit width, 8-depth memory, write/read pointers, and count register.
+- To implement status flags (full and empty) based on the count register.
+- To implement overflow and underflow protection for safe read/write operations.
+- To handle simultaneous read and write with correct count and pointer updates.
+- To develop the testbench infrastructure, including clock, reset, and DUT instantiation.
+- To generate randomized stimulus covering all read/write scenarios automatically.
+- To implement a golden reference scoreboard to track expected FIFO behavior.
+- To perform automatic output comparison and report mismatches immediately.
+- To generate waveforms for analysis of FIFO signals in simulation.
+
 
 ---
 
