@@ -1,5 +1,3 @@
-```verilog
-
 module fifo #(
   parameter DATA_WIDTH = 8,
   parameter DEPTH = 8
@@ -62,7 +60,4 @@ module fifo #(
     end 
   end
 endmodule
-
-
-```
 
