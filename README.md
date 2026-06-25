@@ -62,6 +62,87 @@ against the reference model and reports mismatches.
 
 ---
 
+## 🚀 How to Run on EDA Playground
+
+Follow the steps below to simulate and verify the FIFO design using **EDA Playground**.
+
+---
+
+### 1. Open EDA Playground
+
+Go to:
+
+https://www.edaplayground.com
+
+Sign in or create an account.
+
+---
+
+### 2. Create a New Playground
+
+Add files as follows:
+
+| File | Tab |
+|------|-----|
+| `fifo.sv` | Design |
+| `tb.sv` | Testbench |
+
+---
+
+### 3. Configure Simulation
+
+Set the following options:
+
+| Setting | Value |
+|--------|--------|
+| Simulator | Aldec Riviera-PRO |
+| Top Module | `tb` |
+| EPWave | Enable “Open EPWave after run” |
+
+---
+
+### 4. Run Simulation
+
+Click **Run**.
+
+If everything is correct, the console should display:
+
+```text
+Test Passed
+```
+
+---
+
+### 5. View Waveforms (EPWave)
+
+After execution:
+
+1. Open **EPWave**
+2. Add these signals:
+
+```text
+clk
+rst
+write_en
+read_en
+data_in
+data_out
+empty
+full
+count
+```
+
+---
+
+##  Verification Success Criteria
+
+- Console shows: `Test Passed`
+- No `$error` messages
+- FIFO maintains correct ordering
+- Full/Empty flags behave correctly
+
+---
+
 # Simulation waveform
 <img width="1340" height="300" alt="image" src="https://github.com/user-attachments/assets/7d024bd3-10e1-423c-8021-155ec6d071fc" />
 
