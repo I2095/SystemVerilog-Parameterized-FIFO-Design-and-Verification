@@ -179,7 +179,6 @@ https://www.edaplayground.com
 
 Sign in or create an account.
 
----
 
 ### 2. Create a New Playground
 
@@ -190,7 +189,7 @@ Add files as follows:
 | `fifo.sv` | Design |
 | `tb.sv` | Testbench |
 
----
+
 
 ### 3. Configure Simulation
 
@@ -202,7 +201,7 @@ Set the following options:
 | Top Module | `tb` |
 | EPWave | Enable “Open EPWave after run” |
 
----
+
 
 ### 4. Run Simulation
 
@@ -214,7 +213,7 @@ If everything is correct, the console should display:
 Test Passed
 ```
 
----
+
 
 ### 5. View Waveforms (EPWave)
 
