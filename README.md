@@ -266,19 +266,13 @@ count
 
 ## Corner Cases Verified
 
-✓ FIFO Empty Read Attempt
-
-✓ FIFO Full Write Attempt
-
-✓ Simultaneous Read and Write
-
-✓ Pointer Wraparound
-
-✓ Continuous Burst Writes
-
-✓ Continuous Burst Reads
-
-✓ Reset During Operation
+- FIFO Empty Read Attempt
+- FIFO Full Write Attempt
+- Simultaneous Read and Write
+- Pointer Wraparound
+- Continuous Burst Writes
+- Continuous Burst Reads
+- Reset During Operation
 
 ---
 
