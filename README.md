@@ -98,6 +98,35 @@ against the reference model and reports mismatches.
 
 ---
 
+## SystemVerilog Features Utilized
+
+The FIFO design and verification environment leverage several SystemVerilog constructs commonly used in RTL development and functional verification.
+
+| Feature | Purpose |
+|----------|----------|
+| `parameter` | Enables configurable FIFO depth (`DEPTH`) and data width (`DATA_WIDTH`) for design scalability and reusability. |
+| `always_ff` | Implements synchronous sequential logic for FIFO memory, pointers, and occupancy count updates. |
+| `assign` | Generates combinational `full` and `empty` status flags based on the current FIFO occupancy. |
+| `$urandom` / `$urandom_range` | Generates randomized stimulus to improve verification coverage and expose corner-case scenarios. |
+| `logic [$]` Queue | Serves as a golden reference model for expected FIFO behavior within the scoreboard. |
+| `push_back()` / `pop_front()` | Models FIFO write and read operations in the reference queue for data integrity checking. |
+| `$error()` | Automatically reports mismatches between expected and actual FIFO output data. |
+| `$dumpfile()` / `$dumpvars()` | Creates VCD waveform files for post-simulation debugging and analysis. |
+| `task` | Encapsulates reusable procedures such as reset operations, improving testbench readability and maintainability. |
+| `$clog2()` | Automatically determines the required pointer width based on the configured FIFO depth. |
+
+### Verification Concepts Demonstrated
+
+- Randomized Verification
+- Self-Checking Testbench Development
+- Queue-Based Scoreboarding
+- Data Integrity Verification
+- Functional Debugging
+- Waveform Analysis
+- Boundary Condition Testing
+- Overflow and Underflow Protection Verification
+
+---
 ## Skills Demonstrated
 
 - RTL Design
@@ -110,3 +139,10 @@ against the reference model and reports mismatches.
 - Functional Validation
 - Debugging
 - Waveform Analysis
+
+---
+
+### Key Takeaways
+
+This project demonstrates the application of modern SystemVerilog design and verification techniques, including parameterized RTL development, randomized stimulus generation, automated result checking, and waveform-based debugging. The combination of a scoreboard-driven verification flow and randomized testing helps ensure robust validation of FIFO functionality under a wide range of operating conditions.
+
