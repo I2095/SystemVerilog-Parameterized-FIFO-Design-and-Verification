@@ -169,8 +169,6 @@ The design is validated against:
 
 Follow the steps below to simulate and verify the FIFO design using **EDA Playground**.
 
----
-
 ### 1. Open EDA Playground
 
 Go to:
